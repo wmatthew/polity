@@ -1,0 +1,7 @@
+TODO
+
+Sep 15 2013
+✓	javascript file
+✓	draw a hexagon on screen
+...	github
+
