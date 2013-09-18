@@ -1,15 +1,16 @@
 var c2 = document.getElementById('c').getContext('2d');
 c2.fillStyle = '#f00';
 
-drawTriangleStrip({x:100, y:100}, 9,  true);
-drawTriangleStrip({x:100, y:150}, 11, true);
-drawTriangleStrip({x:100, y:200}, 13, true);
-drawTriangleStrip({x:100, y:250}, 15, true);
+drawTriangleGrid({x:100, y:300}, 3);
 
-drawTriangleStrip({x:100, y:300}, 15, false);
-drawTriangleStrip({x:100, y:350}, 13, false);
-drawTriangleStrip({x:100, y:400}, 11, false);
-drawTriangleStrip({x:100, y:450}, 9,  false);
+
+function drawTriangleGrid(pos, size) {
+  for (var i=0; i<size; i++) {
+    var rowSize = 2*size - 1 + 2*(size -i);
+    drawTriangleStrip({x:pos.x, y:pos.y - 25 * (1 + 2*i)}, rowSize,  true);
+    drawTriangleStrip({x:pos.x, y:pos.y + 25 * (1 + 2*i)}, rowSize,  false);
+  }
+}
 
 function drawTriangleStrip(pos, total, flip) {
   var width = 30;
@@ -52,6 +53,7 @@ function drawPolygon(pos, scale, totalPoints, rotation) {
 }
 
 function drawShape(center, points, scale) {
+	validatePoints(points);
 	c2.beginPath();
 	var c = center;
 	var firstPoint = points.shift();
@@ -63,3 +65,17 @@ function drawShape(center, points, scale) {
 	c2.closePath();
 	c2.fill();
 }
+
+function validatePoints(points) {
+	for (i in points) {
+		validatePoint(points[i])
+	}
+}
+
+function validatePoint(point) {
+	if (point.x == undefined || point.y == undefined) {
+      console.log('invalid point:' + point);		
+	}
+}
+
+console.log("loaded.");
